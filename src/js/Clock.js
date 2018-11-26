@@ -3,23 +3,24 @@ import React from 'react';
 class Clock extends React.Component{
     constructor(){
         super();
+        this.timer = null;
         this.state = {
             date: new Date()
         }
-        console.log('clock',this)
+        console.log('clock++++++++++++',this)
     }
 
     // 在组件输出到 DOM 后会执行
-    componentDidMount(){
-        this.timer = setInterval( () => {
-            this.tick()
-        },1000)
-    }
+    // componentDidMount(){
+    //     this.timer = setInterval( () => {
+    //         this.tick()
+    //     },1000)
+    // }
 
     // 组件从dom中移除之前立即调用
-    componentWillMount(){
-        clearInterval(this.timer)
-    }
+    // componentWillMount(){
+    //     clearInterval(this.timer)
+    // }
 
     tick(){
         this.setState({

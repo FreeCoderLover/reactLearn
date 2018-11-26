@@ -2,6 +2,7 @@
 const webpack = require("webpack");
 // import HtmlWebpackPlugin from 'html-webpack-plugin';
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // import path from 'path';
 // import fs from 'fs';
 // import os from 'os';
@@ -10,7 +11,23 @@ const path = require("path");
 const basePath = path.resolve(__dirname,'src');
 const output = path.join(__dirname,'react');
 
+let ExtractSCSS = new ExtractTextPlugin({
+        // filename: 'css/[name].[hash:20].css',
+        filename: '[name].[hash:20].css',
+        disable: false,
+        allChunks: true
+    });
+
 module.exports = {
+    devServer: {
+        contentBase: output,         //  本地服务器所加载的页面所在的目录
+        // host: getIP(),                //  访问的ip地址
+        port: 8080,                  //  访问的端口号
+        historyApiFallback: true,
+        // clientLogLevel: 'none'
+        // host: '10.10.223.231'
+        // host: '10.10.212.111'
+    },
     mode: process.env.NODE_ENV == 'dev' ? 'development' : 'production',
     context: basePath,  // 引导找寻html页面
     entry: {
@@ -42,6 +59,7 @@ module.exports = {
             // }
         }),
         new webpack.HashedModuleIdsPlugin(),
+        ExtractSCSS,  // 单独使用link标签加载css并设置路径，相对于output配置中的publicPath
         
     ],
     module: {
@@ -61,6 +79,20 @@ module.exports = {
                         presets: ['es2015','react']
                     }
                 }
+            },
+            {
+                // 编译SCSS生成link链接
+                test: /\.scss$/,
+                // include: basePath,
+                use: ExtractSCSS.extract({
+                    fallback: 'style-loader',
+                    use: [{
+                        // loader: 'css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]'
+                        loader: 'css-loader?modules&localIdentName=[local]-[hash:base64:5]'
+                    }, {
+                        loader: 'sass-loader'
+                    }]
+                })
             }
         ]
     }
