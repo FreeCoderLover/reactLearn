@@ -31,7 +31,7 @@ class Clock extends React.Component{
     render(){
         return (
             <div>
-                <h1>2、Clock Component!!!</h1>
+                <h1>Clock Component!!!</h1>
                 <p >现在是：{this.state.date.toLocaleTimeString()}</p>
                 {/*注释...
                     写在花括号内部 

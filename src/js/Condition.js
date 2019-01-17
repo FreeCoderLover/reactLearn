@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button} from '../components/button.js';
 
 class Condition extends React.Component{
     constructor(props){
@@ -29,17 +30,17 @@ class Condition extends React.Component{
         if(this.state.isIn){
             context = (
                 <div>
-                    <h1>5、条件渲染</h1>
+                    <h1>条件渲染</h1>
                     <p>我是未登录状态.....^_^.....</p>
-                    <button onClick={this.handleLoginClick}>登录</button>
+                    <Button onClick={this.handleLoginClick}>登录</Button>
                 </div>
                 )
         }else{
             context = (
                 <div>
-                    <h1>5、条件渲染</h1>
+                    <h1>条件渲染</h1>
                     <p>我是登录状态+++++*_*+++++</p>
-                    <button onClick={this.handleLogoutClick}>退出</button>
+                    <Button primary onClick={this.handleLogoutClick}>退出</Button>
                 </div>
             )
         }

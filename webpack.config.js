@@ -22,7 +22,7 @@ module.exports = {
     devServer: {
         contentBase: output,         //  本地服务器所加载的页面所在的目录
         // host: getIP(),                //  访问的ip地址
-        port: 8080,                  //  访问的端口号
+        port: 8888,                  //  访问的端口号
         historyApiFallback: true,
         // clientLogLevel: 'none'
         // host: '10.10.223.231'
@@ -43,6 +43,7 @@ module.exports = {
     resolve: {
         modules: [basePath,'node_modules'], // 引导找寻js文件
     },
+    // devServer: process.env.NODE_ENV === 'dev' ? defaults.devServer : {},
     plugins: [
         new HtmlWebpackPlugin({
             //根据模板插入css/js等生成最终HTML
@@ -76,7 +77,7 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['es2015','react']
+                        presets: ["react", "es2015", "stage-1"]
                     }
                 }
             },

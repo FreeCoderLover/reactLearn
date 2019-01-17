@@ -1,34 +1,32 @@
 import React from 'react';
+import LifeCycle from './LifeCycle';
 
 
 class App extends React.Component{
     constructor(){
         super();
-        this.a = 10;
-        console.log(this);
         this.state = {
-            a: 20,
-            myStyle: {                 // camelCase语法设置内联样式
-                fontSize:20,
-                color:'red'
-            },
-            arr: ['渲染列表','苹果','香蕉'].map( (v,i) => {
-                return <li key={i}>{v}</li>
-            })
+            tit: '传递的标题属性',
+            name: '我是父组件传递的属性'
         }
+    }
+
+    setTit = () => {
+        this.setState({
+            tit: '我是被传递到子组件的属性！！！'
+        })
     }
     
     render(){
         return (
             <div>
-                <h1>1、我是react很高兴遇见你，hello！</h1>
-                {this.a}<br />
-                {this.state.a}<br />
-                {1+1}<br />
-                {this.a == 10 ? 'ok' : 'no'}
-                <p style={this.state.myStyle}>设置样式属性,需要使用json格式</p>
-                <ul>{this.state.arr}</ul>
-                <p className="test">注意：设置元素类名，需要使用className，不能使用class</p>
+                <section style={{marginBottom:'100px'}}>
+                    <h1>关于生命周期</h1>
+                    <LifeCycle title={this.state.tit}/>
+                    <hr />
+                    <p>父组件内部的属性：{this.state.tit}</p>
+                    <button onClick={this.setTit}>父组件按钮</button>
+                </section>
             </div>
         )
     }
